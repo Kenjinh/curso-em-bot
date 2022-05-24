@@ -1,1 +1,3 @@
+release: mv -t tagging.py .heroku/python/lib/python3.7/site-packages/chatterbot/
+release: python -m spacy download en_core_web_sm
 web: gunicorn bot.wsgi
