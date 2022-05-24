@@ -1,7 +1,7 @@
 asgiref==3.5.2
 backports.zoneinfo==0.2.1
 bootstrap4==0.1.0
-ChatterBot==1.0.8
+ChatterBot==1.*
 dj-database-url==0.5.0
 Django==4.0.4
 django-heroku==0.3.1
