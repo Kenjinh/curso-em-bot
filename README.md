@@ -1,5 +1,4 @@
 # Curso em Bot
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 ## 🛠️Open and run project
 * Clone the repository ```bash $ git clone https://github.com/Kenjinh/curso-em-bot.git ```
