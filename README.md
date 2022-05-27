@@ -1,5 +1,5 @@
 # Curso em Bot
-
+:alert:  Need Python 3.8.0  :alert:
 ## 🛠️Open and run project
 * Clone the repository ```bash $ git clone https://github.com/Kenjinh/curso-em-bot.git ```
 * Create venv ```bash $ python -m venv venv ```
