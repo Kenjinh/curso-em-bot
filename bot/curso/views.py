@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from unidecode import unidecode
 from chatterbot import ChatBot  # Import ChatBot
 from . import models
 from django.shortcuts import render
@@ -33,9 +34,8 @@ class ChatterBotApiView(View):
 
         response = self.chatterbot.get_response(input_data)
         response_data = response.serialize()
-        response_data['in_response_to'] = response_data['in_response_to'].lower().replace('-',
-                                                                                          '')  # Remove "-" and change for lower
-
+        response_data['in_response_to'] = response_data['in_response_to'].lower().replace('-','')  # Remove "-" and change for lower
+        response_data['in_response_to'] = unidecode(response_data['in_response_to']) # Remove accents
         # region Welcome
         if response_data['in_response_to'] == 'ola' or response_data['in_response_to'] == 'oi' or response_data[
             'in_response_to'] == 'olá' or response_data['in_response_to'] == 'começar':
@@ -43,12 +43,12 @@ class ChatterBotApiView(View):
                 'text'] = 'Seja bem-vindo, sou o Curso em bot e estarei te auxiliando a escolher algum determinado curso ou auxiliando a aprender sobre algumas das áreas de TI!Escolha uma das seguintes opções:' + \
                           '</br><button id="buttonSay" class="btn btn-outline-dark mt-2" onClick="sendButton(this.value);" value="Quero visualizar os cursos disponíveis">Quero visualizar os cursos disponíveis</button>'
 
-        elif response_data['in_response_to'] == 'desejo entender mais sobre as áreas de ti':
+        elif response_data['in_response_to'] == 'desejo entender mais sobre as areas de ti':
             response_data['text'] = '????'
         # endregion
 
         # region Select Train
-        elif response_data['in_response_to'] == 'quero visualizar os cursos disponíveis':
+        elif response_data['in_response_to'] == 'quero visualizar os cursos disponiveis':
             response_data['text'] = 'Em qual área você tem interesse em treinamentos:' + \
                                     '</br><button id="buttonSay" class="btn btn-outline-dark mt-2" onClick="var buttonValue = sendButton(this.value);" value="Desenvolvimento Front-end">Desenvolvimento Front-end</button>' + \
                                     '</br><button id="buttonSay" class="btn btn-outline-dark mt-2" onClick="var buttonValue = sendButton(this.value);" value="Desenvolvimento Back-end">Desenvolvimento Back-end</button>' + \
@@ -105,7 +105,7 @@ class ChatterBotApiView(View):
                                     '</br><button id="buttonSay" class="btn btn-outline-dark mt-2" onClick="var buttonValue = sendButton(this.value);" value="javascript">JavaScript</button>' + \
                                     '</br><button id="buttonSay" class="btn btn-outline-dark mt-2" onClick="var buttonValue = sendButton(this.value);" value="ola">Voltar ao menu inicial</button>'
 
-        elif response_data['in_response_to'] == 'backend não':
+        elif response_data['in_response_to'] == 'backend nao':
             response_data['text'] = 'Vamos iniciar nesse mundo de lógica de programação!' + \
                                     '</br><a class="" href="https://www.cursoemvideo.com/curso/curso-de-algoritmo/" target="_blank">Curso de lógica de programação</a>' + \
                                     '</br><button id="buttonSay" class="btn btn-outline-dark mt-2" onClick="var buttonValue = sendButton(this.value);" value="ola">Voltar ao menu inicial</button>'
@@ -157,7 +157,7 @@ class ChatterBotApiView(View):
         # endregion
 
         # region tests/QA
-        elif response_data['in_response_to'] == 'automação':
+        elif response_data['in_response_to'] == 'automacao' or response_data['in_response_to'] == 'criacao de automacao de testes':
             response_data['text'] = 'Certo, então quer ser um analista de testes/QA!' + \
                                     '</br><a class="" href="https://www.youtube.com/playlist?list=PLedtsFT8ymsgVCqgLvPiSrfYeGdujcqvv">Curso Automação de testes</a>' + \
                                     '</br><button id="buttonSay" class="btn btn-outline-dark mt-2" onClick="var buttonValue = sendButton(this.value);" value="ola">Voltar ao menu inicial</button>'
